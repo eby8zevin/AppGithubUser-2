@@ -22,37 +22,37 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
-    public static String ApiKey = "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";
+    public static String ApiGithub = "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";
 
     private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
 
     public void setSearchUser(String query) {
-        ApiService apiService = ApiConfig.getApiService();
-        Call<Search> call = apiService.searchUser(ApiKey, query);
-        call.enqueue(new Callback<Search>() {
-            @Override
-            public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
-                if (!response.isSuccessful()) {
-                    Log.e("response", response.toString());
-                } else if (response.body() != null) {
-                    ArrayList<SearchData> user = new ArrayList<>(response.body().getSearchData());
-                    searchMutableLiveData.setValue(user);
+        try {
+            ApiService apiService = ApiConfig.getApiService();
+            Call<Search> call = apiService.searchUser(query);
+            call.enqueue(new Callback<Search>() {
+                @Override
+                public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
+                    if (!response.isSuccessful()) {
+                        Log.e("response", response.toString());
+                    } else if (response.body() != null) {
+                        ArrayList<SearchData> user = new ArrayList<>(response.body().getSearchData());
+                        searchMutableLiveData.setValue(user);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(@NotNull Call<Search> call, @NotNull Throwable t) {
-
-            }
-        });
+                @Override
+                public void onFailure(@NotNull Call<Search> call, @NotNull Throwable t) {
+                    Log.e("failure", t.toString());
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Token e", String.valueOf(e));
+        }
     }
 
-    public LiveData<User> getUserList() {
-        return userMutableLiveData;
-    }
-
-    public LiveData<ArrayList<SearchData>> getResultList() {
+    public LiveData<ArrayList<SearchData>> getSearchData() {
         return searchMutableLiveData;
     }
 
