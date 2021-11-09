@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ahmadabuhasan.appgithubuser.BuildConfig;
 import com.ahmadabuhasan.appgithubuser.model.Search;
 import com.ahmadabuhasan.appgithubuser.model.SearchData;
 import com.ahmadabuhasan.appgithubuser.model.User;
@@ -22,15 +23,14 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
-    public static String ApiGithub = "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";
-
     private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
 
     public void setSearchUser(String query) {
         try {
+            String ApiGithub = BuildConfig.TOKEN;
             ApiService apiService = ApiConfig.getApiService();
-            Call<Search> call = apiService.searchUser(query);
+            Call<Search> call = apiService.searchUser(ApiGithub, query);
             call.enqueue(new Callback<Search>() {
                 @Override
                 public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
