@@ -14,9 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppGithubUser"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashScreen">
-
-        </activity>
+        <activity android:name=".ui.UserDetailActivity" />
+        <activity android:name=".SplashScreen" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
