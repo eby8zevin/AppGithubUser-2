@@ -5,4 +5,13 @@
     <string name="search_hint">Search Username</string>
     <string name="search">Search</string>
     <string name="about">About</string>
+
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
+    <string name="html">Web</string>
+    <string name="repository">Repository</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 </resources>
