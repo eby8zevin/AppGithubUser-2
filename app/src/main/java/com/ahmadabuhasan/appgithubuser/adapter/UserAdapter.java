@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
-    final ArrayList<SearchData> searchData = new ArrayList<>();
-    final Context context;
+    ArrayList<SearchData> searchData = new ArrayList<>();
+    Context context;
 
     private OnItemClickCallback onItemClickCallback;
 
