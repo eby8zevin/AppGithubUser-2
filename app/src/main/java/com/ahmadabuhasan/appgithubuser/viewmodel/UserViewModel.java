@@ -23,14 +23,14 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
-    private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
     public void setSearchUser(String query) {
         try {
             String ApiGithub = BuildConfig.TOKEN;
             ApiService apiService = ApiConfig.getApiService();
-            Call<Search> call = apiService.searchUser(ApiGithub, query);
+            Call<Search> call = apiService.searchUser(query);
             call.enqueue(new Callback<Search>() {
                 @Override
                 public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
@@ -54,6 +54,34 @@ public class UserViewModel extends ViewModel {
 
     public LiveData<ArrayList<SearchData>> getSearchData() {
         return searchMutableLiveData;
+    }
+
+    public void setUserDetail(String dataUser) {
+        try {
+            ApiService apiService = ApiConfig.getApiService();
+            Call<User> call = apiService.detailUser(dataUser);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (!response.isSuccessful()) {
+                        Log.e("response", response.toString());
+                    } else if (response.body() != null) {
+                        userMutableLiveData.setValue(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.e("failure", t.toString());
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Token e", String.valueOf(e));
+        }
+    }
+
+    public LiveData<User> getUserDetail() {
+        return userMutableLiveData;
     }
 
 }
