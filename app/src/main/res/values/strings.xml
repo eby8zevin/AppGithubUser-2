@@ -6,6 +6,7 @@
     <string name="search">Search</string>
     <string name="about">About</string>
 
+    <string name="detail_user">Detail User</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="company">Company</string>
