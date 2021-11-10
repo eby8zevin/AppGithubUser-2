@@ -40,5 +40,4 @@ public class SearchData {
     public void setHtmlUrl(String htmlUrl) {
         this.htmlUrl = htmlUrl;
     }
-
 }
