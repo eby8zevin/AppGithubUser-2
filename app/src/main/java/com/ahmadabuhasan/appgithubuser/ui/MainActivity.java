@@ -2,7 +2,6 @@ package com.ahmadabuhasan.appgithubuser.ui;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+        setTitle(R.string.users_search);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setTitle(R.string.users_search);
 
         binding.rvGithub.setHasFixedSize(true);
         showViewModel();
@@ -86,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
     private void showSelectedUser(SearchData user) {
         Toasty.success(this, "You choose " + user.getUsername(), Toasty.LENGTH_SHORT).show();
 
-        Intent i = new Intent(MainActivity.this, UserDetailActivity.class);
-        //i.putExtra(UserDetailActivity.EXTRA_USER, user);
-        startActivity(i);
+        /*Intent i = new Intent(getApplicationContext(), UserDetailActivity.class);
+        getApplicationContext().startActivity(i);*/
     }
 
     @Override
