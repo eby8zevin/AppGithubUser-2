@@ -14,10 +14,10 @@ import com.bumptech.glide.Glide;
 
 public class UserDetailActivity extends AppCompatActivity {
 
-    ActivityUserDetailBinding binding;
+    private ActivityUserDetailBinding binding;
+    private String dataUser;
     public static String DETAIL_USER = "DETAIL_USER";
     UserViewModel userViewModel;
-    String dataUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class UserDetailActivity extends AppCompatActivity {
         binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        dataUser = getIntent().getStringExtra(DETAIL_USER);
         showViewModel();
     }
 
@@ -43,7 +44,9 @@ public class UserDetailActivity extends AppCompatActivity {
                     .into(binding.imgUser);
             binding.tvNameDetail.setText(user.getName());
             binding.tvUsernameDetail.setText(String.format("@%s", user.getUsername()));
-            binding.tvCompanyDetail.setText(user.getCompany());
+            binding.tvCompanyDetail.setText(String.format("%s%s", getResources().getString(R.string.company), user.getCompany()));
+            binding.tvLocationDetail.setText(String.format("%s%s", getResources().getString(R.string.location), user.getLocation()));
+            binding.tvBlogDetail.setText(String.format("%s%s", getResources().getString(R.string.blog), user.getHtmlUrl()));
             binding.tvFollowers.setText(user.getFollowers());
             binding.tvRepository.setText(user.getRepository());
             binding.tvFollowing.setText(user.getFollowing());
