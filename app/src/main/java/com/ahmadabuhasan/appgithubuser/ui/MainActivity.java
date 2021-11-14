@@ -2,6 +2,7 @@ package com.ahmadabuhasan.appgithubuser.ui;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,10 +26,11 @@ import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.ahmadabuhasan.appgithubuser.ui.UserDetailActivity.DETAIL_USER;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
     private UserViewModel userViewModel;
     private UserAdapter userAdapter;
 
@@ -86,8 +88,9 @@ public class MainActivity extends AppCompatActivity {
     private void showSelectedUser(SearchData user) {
         Toasty.success(this, "You choose " + user.getUsername(), Toasty.LENGTH_SHORT).show();
 
-        /*Intent i = new Intent(getApplicationContext(), UserDetailActivity.class);
-        getApplicationContext().startActivity(i);*/
+        Intent i = new Intent(UserAdapter.context, UserDetailActivity.class);
+        i.putExtra(DETAIL_USER, user.getUsername());
+        UserAdapter.context.startActivity(i);
     }
 
     @Override
