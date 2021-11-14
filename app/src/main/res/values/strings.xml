@@ -9,9 +9,9 @@
     <string name="detail_user">Detail User</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
-    <string name="company">Company</string>
-    <string name="location">Location</string>
-    <string name="html">Web</string>
+    <string name="company">Company:\u0020</string>
+    <string name="location">Location:\u0020</string>
+    <string name="blog">Web:\u0020</string>
     <string name="repository">Repository</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
