@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ahmadabuhasan.appgithubuser.BuildConfig;
 import com.ahmadabuhasan.appgithubuser.model.Search;
 import com.ahmadabuhasan.appgithubuser.model.SearchData;
 import com.ahmadabuhasan.appgithubuser.model.User;
@@ -28,7 +27,7 @@ public class UserViewModel extends ViewModel {
 
     public void setSearchUser(String query) {
         try {
-            String ApiGithub = BuildConfig.TOKEN;
+            //String ApiGithub = BuildConfig.TOKEN;
             ApiService apiService = ApiConfig.getApiService();
             Call<Search> call = apiService.searchUser(query);
             call.enqueue(new Callback<Search>() {
@@ -62,7 +61,7 @@ public class UserViewModel extends ViewModel {
             Call<User> call = apiService.detailUser(dataUser);
             call.enqueue(new Callback<User>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
                     if (!response.isSuccessful()) {
                         Log.e("response", response.toString());
                     } else if (response.body() != null) {
@@ -71,7 +70,7 @@ public class UserViewModel extends ViewModel {
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
                     Log.e("failure", t.toString());
                 }
             });
