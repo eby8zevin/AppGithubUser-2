@@ -22,6 +22,8 @@ import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
 
+    private final String TAG = "UserViewModel";
+
     private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
@@ -34,7 +36,7 @@ public class UserViewModel extends ViewModel {
                 @Override
                 public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
                     if (!response.isSuccessful()) {
-                        Log.e("response", response.toString());
+                        Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
                         ArrayList<SearchData> user = new ArrayList<>(response.body().getSearchData());
                         searchMutableLiveData.setValue(user);
@@ -43,7 +45,7 @@ public class UserViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(@NotNull Call<Search> call, @NotNull Throwable t) {
-                    Log.e("failure", t.toString());
+                    Log.e(TAG, t.toString());
                 }
             });
         } catch (Exception e) {
