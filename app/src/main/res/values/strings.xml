@@ -5,7 +5,7 @@
     <string name="search_hint">Search Username</string>
     <string name="search">Search</string>
     <string name="about">About</string>
-
+    <string name="no_data">No Data</string>
     <string name="detail_user">Detail User</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
