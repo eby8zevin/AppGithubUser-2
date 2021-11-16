@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.NoData.setVisibility(View.VISIBLE);
 
+        showLoading(false);
         binding.rvGithub.setHasFixedSize(true);
         showViewModel();
         showRecyclerView();
@@ -91,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (searchManager != null) {
             showLoading(true);
-
             SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search_hint));
