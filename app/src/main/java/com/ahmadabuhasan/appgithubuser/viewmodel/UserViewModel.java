@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ahmadabuhasan.appgithubuser.model.Follow;
 import com.ahmadabuhasan.appgithubuser.model.Search;
 import com.ahmadabuhasan.appgithubuser.model.SearchData;
 import com.ahmadabuhasan.appgithubuser.model.User;
@@ -24,8 +25,37 @@ public class UserViewModel extends ViewModel {
 
     private final String TAG = "UserViewModel";
 
-    private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Follow>> followersMutableLiveData = new MutableLiveData<>();
+
+    public void setUserDetail(String dataUser) {
+        try {
+            ApiService apiService = ApiConfig.getApiService();
+            Call<User> call = apiService.detailUser(dataUser);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
+                    if (!response.isSuccessful()) {
+                        Log.e("response", response.toString());
+                    } else if (response.body() != null) {
+                        userMutableLiveData.setValue(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
+                    Log.e("failure", t.toString());
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Token e", String.valueOf(e));
+        }
+    }
+
+    public LiveData<User> getUserDetail() {
+        return userMutableLiveData;
+    }
 
     public void setSearchUser(String query) {
         try {
@@ -57,23 +87,23 @@ public class UserViewModel extends ViewModel {
         return searchMutableLiveData;
     }
 
-    public void setUserDetail(String dataUser) {
+    public void setFollowers(String dataFollowers) {
         try {
             ApiService apiService = ApiConfig.getApiService();
-            Call<User> call = apiService.detailUser(dataUser);
-            call.enqueue(new Callback<User>() {
+            Call<ArrayList<Follow>> call = apiService.followersUser(dataFollowers);
+            call.enqueue(new Callback<ArrayList<Follow>>() {
                 @Override
-                public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
+                public void onResponse(@NotNull Call<ArrayList<Follow>> call, @NotNull Response<ArrayList<Follow>> response) {
                     if (!response.isSuccessful()) {
-                        Log.e("response", response.toString());
+                        Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
-                        userMutableLiveData.setValue(response.body());
+                        followersMutableLiveData.setValue(response.body());
                     }
                 }
 
                 @Override
-                public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
-                    Log.e("failure", t.toString());
+                public void onFailure(@NotNull Call<ArrayList<Follow>> call, @NotNull Throwable t) {
+                    Log.e(TAG, toString());
                 }
             });
         } catch (Exception e) {
@@ -81,8 +111,8 @@ public class UserViewModel extends ViewModel {
         }
     }
 
-    public LiveData<User> getUserDetail() {
-        return userMutableLiveData;
+    public LiveData<ArrayList<Follow>> getFollowersUser(){
+        return followersMutableLiveData;
     }
 
 }
