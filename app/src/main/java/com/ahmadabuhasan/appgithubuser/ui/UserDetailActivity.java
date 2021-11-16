@@ -8,16 +8,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ahmadabuhasan.appgithubuser.R;
+import com.ahmadabuhasan.appgithubuser.adapter.ViewPagerAdapter;
 import com.ahmadabuhasan.appgithubuser.databinding.ActivityUserDetailBinding;
 import com.ahmadabuhasan.appgithubuser.viewmodel.UserViewModel;
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class UserDetailActivity extends AppCompatActivity {
 
     private ActivityUserDetailBinding binding;
-    private String dataUser;
+    public static String dataUser;
     public static String DETAIL_USER = "DETAIL_USER";
     UserViewModel userViewModel;
+
+    private final int[] TAB_CLICK = new int[]{
+            R.string.followers,
+            R.string.following
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,12 @@ public class UserDetailActivity extends AppCompatActivity {
 
         binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        binding.viewPager.setAdapter(viewPagerAdapter);
+        new TabLayoutMediator(binding.tabsLayout, binding.viewPager,
+                (tab, position) -> tab.setText(getResources().getString(TAB_CLICK[position]))
+        ).attach();
 
         dataUser = getIntent().getStringExtra(DETAIL_USER);
         showViewModel();
