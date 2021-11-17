@@ -1,6 +1,5 @@
 package com.ahmadabuhasan.appgithubuser.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private final ArrayList<SearchData> searchData = new ArrayList<>();
-    @SuppressLint("StaticFieldLeak")
     public static Context context;
 
     private OnItemClickCallback onItemClickCallback;
