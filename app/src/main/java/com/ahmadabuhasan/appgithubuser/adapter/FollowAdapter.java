@@ -3,7 +3,6 @@ package com.ahmadabuhasan.appgithubuser.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -49,13 +48,10 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
         holder.binding.tvHtml.setText(follow.getHtmlUrl());
         holder.binding.tvUsername.setText(String.format("@%s", follow.getUsername()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, UserDetailActivity.class);
-                i.putExtra(DETAIL_USER, follow.getUsername());
-                context.startActivity(i);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(context, UserDetailActivity.class);
+            i.putExtra(DETAIL_USER, follow.getUsername());
+            context.startActivity(i);
         });
     }
 
