@@ -28,7 +28,9 @@ public class UserViewModel extends ViewModel {
     private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<SearchData>> searchMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Follow>> followersMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Follow>> followingMutableLiveData = new MutableLiveData<>();
 
+    // Detail
     public void setUserDetail(String dataUser) {
         try {
             ApiService apiService = ApiConfig.getApiService();
@@ -57,6 +59,7 @@ public class UserViewModel extends ViewModel {
         return userMutableLiveData;
     }
 
+    // Search
     public void setSearchUser(String query) {
         try {
             //String ApiGithub = BuildConfig.TOKEN;
@@ -87,6 +90,7 @@ public class UserViewModel extends ViewModel {
         return searchMutableLiveData;
     }
 
+    // Followers
     public void setFollowers(String dataFollowers) {
         try {
             ApiService apiService = ApiConfig.getApiService();
@@ -111,8 +115,36 @@ public class UserViewModel extends ViewModel {
         }
     }
 
-    public LiveData<ArrayList<Follow>> getFollowersUser(){
+    public LiveData<ArrayList<Follow>> getFollowersUser() {
         return followersMutableLiveData;
     }
 
+    // Following
+    public void setFollowing(String dataFollowing) {
+        try {
+            ApiService apiService = ApiConfig.getApiService();
+            Call<ArrayList<Follow>> call = apiService.followingUser(dataFollowing);
+            call.enqueue(new Callback<ArrayList<Follow>>() {
+                @Override
+                public void onResponse(@NotNull Call<ArrayList<Follow>> call, @NotNull Response<ArrayList<Follow>> response) {
+                    if (!response.isSuccessful()) {
+                        Log.e(TAG, response.toString());
+                    } else if (response.body() != null) {
+                        followingMutableLiveData.setValue(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<ArrayList<Follow>> call, @NotNull Throwable t) {
+                    Log.e(TAG, t.toString());
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Token e", String.valueOf(e));
+        }
+    }
+
+    public LiveData<ArrayList<Follow>> getFollowingUser() {
+        return followingMutableLiveData;
+    }
 }
