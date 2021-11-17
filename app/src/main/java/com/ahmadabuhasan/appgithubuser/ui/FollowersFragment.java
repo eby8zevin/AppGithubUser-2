@@ -46,7 +46,7 @@ public class FollowersFragment extends Fragment {
             if (follows.size() != 0) {
                 followAdapter.setFollowList(follows);
             } else {
-                Toasty.info(getContext(), "Followers Not Found", Toasty.LENGTH_SHORT).show();
+                Toasty.info(requireContext(), "Followers Not Found", Toasty.LENGTH_SHORT).show();
             }
         });
         return view;
