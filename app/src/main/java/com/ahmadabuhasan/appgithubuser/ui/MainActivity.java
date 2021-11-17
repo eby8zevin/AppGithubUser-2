@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private UserViewModel userViewModel;
     private UserAdapter userAdapter;
+    private long backPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +115,15 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         return true;
+    }
+
+    public void onBackPressed() {
+        if (backPressed + 2000 > System.currentTimeMillis()) {
+            finishAffinity();
+        } else {
+            Toasty.warning(this, "Press once again to exit", Toasty.LENGTH_SHORT).show();
+        }
+        backPressed = System.currentTimeMillis();
     }
 
     private void showLoading(Boolean isLoading) {
