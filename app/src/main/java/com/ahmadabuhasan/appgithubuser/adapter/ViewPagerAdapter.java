@@ -8,6 +8,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.ahmadabuhasan.appgithubuser.ui.FollowersFragment;
 import com.ahmadabuhasan.appgithubuser.ui.FollowingFragment;
 
+import java.util.Objects;
+
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
     public ViewPagerAdapter(AppCompatActivity activity) {
@@ -26,7 +28,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 fragment = new FollowingFragment();
                 break;
         }
-        return fragment;
+        return Objects.requireNonNull(fragment);
     }
 
     @Override
