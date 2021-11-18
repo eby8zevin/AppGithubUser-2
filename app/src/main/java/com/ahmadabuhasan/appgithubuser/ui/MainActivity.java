@@ -7,9 +7,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,22 +43,22 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.NoData.setVisibility(View.VISIBLE);
 
-        showLoading(false);
+        binding.NoData.setVisibility(View.VISIBLE);
         binding.rvGithub.setHasFixedSize(true);
         showViewModel();
         showRecyclerView();
+        userViewModel.isLoading().observe(this, this::showLoading);
     }
 
     private void showViewModel() {
         userViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
         userViewModel.getSearchData().observe(this, searchData -> {
-            showLoading(false);
             if (searchData.size() != 0) {
                 binding.NoData.setVisibility(View.GONE);
                 userAdapter.setSearchData(searchData);
             } else {
+                binding.NoData.setVisibility(View.VISIBLE);
                 Toasty.warning(getApplicationContext(), "User Not Found!", Toasty.LENGTH_SHORT).show();
             }
         });
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(UserAdapter.context, UserDetailActivity.class);
         i.putExtra(DETAIL_USER, user.getUsername());
         UserAdapter.context.startActivity(i);
+        hideKeyboard();
     }
 
     @Override
@@ -92,12 +95,10 @@ public class MainActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         if (searchManager != null) {
-            showLoading(true);
             SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+            MenuItem closeSearch = menu.findItem(R.id.search);
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search_hint));
-            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            im.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -107,14 +108,35 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    if (userViewModel != null) {
-                        userViewModel.setSearchUser(newText);
-                    }
+                    userViewModel.setSearchUser(newText);
                     return false;
                 }
             });
+            closeSearch.getIcon().setVisible(false, false);
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        } else if (item.getItemId() == R.id.refresh) {
+            Intent i = new Intent(MainActivity.this, MainActivity.class);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(i);
+            overridePendingTransition(0, 0);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public void onBackPressed() {
