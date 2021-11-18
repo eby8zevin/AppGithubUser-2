@@ -62,16 +62,17 @@ public class UserViewModel extends ViewModel {
     // Search
     public void setSearchUser(String query) {
         try {
-            //String ApiGithub = BuildConfig.TOKEN;
+            _isLoading.setValue(true);
             ApiService apiService = ApiConfig.getApiService();
             Call<Search> call = apiService.searchUser(query);
             call.enqueue(new Callback<Search>() {
                 @Override
                 public void onResponse(@NotNull Call<Search> call, @NotNull Response<Search> response) {
+                    _isLoading.setValue(false);
                     if (!response.isSuccessful()) {
                         Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
-                        ArrayList<SearchData> user = new ArrayList<>(response.body().getSearchData());
+                        ArrayList<SearchData> user = new ArrayList<>(response.body().getSearch());
                         searchMutableLiveData.setValue(user);
                     }
                 }
@@ -146,5 +147,10 @@ public class UserViewModel extends ViewModel {
 
     public LiveData<ArrayList<Follow>> getFollowingUser() {
         return followingMutableLiveData;
+    }
+
+    private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>();
+    public LiveData<Boolean> isLoading() {
+        return _isLoading;
     }
 }
