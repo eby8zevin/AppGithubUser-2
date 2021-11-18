@@ -9,12 +9,11 @@ public class Search {
     @SerializedName("items")
     private List<SearchData> searchData;
 
-    public List<SearchData> getSearchData() {
+    public List<SearchData> getSearch() {
         return searchData;
     }
 
-    public void setSearchData(List<SearchData> searchData) {
+    public void setSearch(List<SearchData> searchData) {
         this.searchData = searchData;
     }
-
 }
