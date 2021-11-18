@@ -1,6 +1,10 @@
 package com.ahmadabuhasan.appgithubuser.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -14,13 +18,14 @@ import com.ahmadabuhasan.appgithubuser.viewmodel.UserViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 public class UserDetailActivity extends AppCompatActivity {
 
     private ActivityUserDetailBinding binding;
     public static String dataUser;
     public static String DETAIL_USER = "DETAIL_USER";
     UserViewModel userViewModel;
-
     private final int[] TAB_CLICK = new int[]{
             R.string.followers,
             R.string.following
@@ -32,7 +37,7 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
         setTitle(R.string.detail_user);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
@@ -67,10 +72,21 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
+        } else if (item.getItemId() == R.id.share) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://github.com/" + dataUser));
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
