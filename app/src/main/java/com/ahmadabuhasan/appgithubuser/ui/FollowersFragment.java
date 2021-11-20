@@ -49,6 +49,7 @@ public class FollowersFragment extends Fragment {
                 Toasty.info(requireContext(), "Followers Not Found", Toasty.LENGTH_SHORT).show();
             }
         });
+        followersViewModel.isLoading().observe(getViewLifecycleOwner(), this::showLoading);
         return view;
     }
 
@@ -56,5 +57,13 @@ public class FollowersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         followersViewModel.setFollowers(UserDetailActivity.dataUser);
+    }
+
+    private void showLoading(Boolean isLoading) {
+        if (isLoading) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            binding.progressBar.setVisibility(View.GONE);
+        }
     }
 }
