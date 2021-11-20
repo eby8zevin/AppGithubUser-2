@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
         dataUser = getIntent().getStringExtra(DETAIL_USER);
         showViewModel();
+        userViewModel.isLoading().observe(this, this::showLoading);
     }
 
     private void showViewModel() {
@@ -89,5 +91,13 @@ public class UserDetailActivity extends AppCompatActivity {
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLoading(Boolean isLoading) {
+        if (isLoading) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            binding.progressBar.setVisibility(View.GONE);
+        }
     }
 }
