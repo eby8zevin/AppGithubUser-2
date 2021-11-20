@@ -30,16 +30,24 @@ public class UserViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<Follow>> followersMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Follow>> followingMutableLiveData = new MutableLiveData<>();
 
+    private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>();
+
+    public LiveData<Boolean> isLoading() {
+        return _isLoading;
+    }
+
     // Detail
     public void setUserDetail(String dataUser) {
         try {
+            _isLoading.setValue(true);
             ApiService apiService = ApiConfig.getApiService();
             Call<User> call = apiService.detailUser(dataUser);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
+                    _isLoading.setValue(false);
                     if (!response.isSuccessful()) {
-                        Log.e("response", response.toString());
+                        Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
                         userMutableLiveData.setValue(response.body());
                     }
@@ -47,7 +55,8 @@ public class UserViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
-                    Log.e("failure", t.toString());
+                    _isLoading.setValue(false);
+                    Log.e(TAG, t.toString());
                 }
             });
         } catch (Exception e) {
@@ -79,6 +88,7 @@ public class UserViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(@NotNull Call<Search> call, @NotNull Throwable t) {
+                    _isLoading.setValue(false);
                     Log.e(TAG, t.toString());
                 }
             });
@@ -94,11 +104,13 @@ public class UserViewModel extends ViewModel {
     // Followers
     public void setFollowers(String dataFollowers) {
         try {
+            _isLoading.setValue(true);
             ApiService apiService = ApiConfig.getApiService();
             Call<ArrayList<Follow>> call = apiService.followersUser(dataFollowers);
             call.enqueue(new Callback<ArrayList<Follow>>() {
                 @Override
                 public void onResponse(@NotNull Call<ArrayList<Follow>> call, @NotNull Response<ArrayList<Follow>> response) {
+                    _isLoading.setValue(false);
                     if (!response.isSuccessful()) {
                         Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
@@ -108,6 +120,7 @@ public class UserViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(@NotNull Call<ArrayList<Follow>> call, @NotNull Throwable t) {
+                    _isLoading.setValue(false);
                     Log.e(TAG, toString());
                 }
             });
@@ -123,11 +136,13 @@ public class UserViewModel extends ViewModel {
     // Following
     public void setFollowing(String dataFollowing) {
         try {
+            _isLoading.setValue(true);
             ApiService apiService = ApiConfig.getApiService();
             Call<ArrayList<Follow>> call = apiService.followingUser(dataFollowing);
             call.enqueue(new Callback<ArrayList<Follow>>() {
                 @Override
                 public void onResponse(@NotNull Call<ArrayList<Follow>> call, @NotNull Response<ArrayList<Follow>> response) {
+                    _isLoading.setValue(false);
                     if (!response.isSuccessful()) {
                         Log.e(TAG, response.toString());
                     } else if (response.body() != null) {
@@ -137,6 +152,7 @@ public class UserViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(@NotNull Call<ArrayList<Follow>> call, @NotNull Throwable t) {
+                    _isLoading.setValue(false);
                     Log.e(TAG, t.toString());
                 }
             });
@@ -147,10 +163,5 @@ public class UserViewModel extends ViewModel {
 
     public LiveData<ArrayList<Follow>> getFollowingUser() {
         return followingMutableLiveData;
-    }
-
-    private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>();
-    public LiveData<Boolean> isLoading() {
-        return _isLoading;
     }
 }
