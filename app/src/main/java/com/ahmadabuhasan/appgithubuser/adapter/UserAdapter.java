@@ -3,8 +3,6 @@ package com.ahmadabuhasan.appgithubuser.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +16,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> implements Filterable {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private final ArrayList<SearchData> searchData = new ArrayList<>();
-    private ArrayList<SearchData> searchDataFilter;
     public static Context context;
 
     private OnItemClickCallback onItemClickCallback;
@@ -76,35 +73,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public interface OnItemClickCallback {
         void onItemClicked(SearchData data);
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String charString = constraint.toString();
-                if (charString.isEmpty()) {
-                    searchDataFilter = searchData;
-                } else {
-                    ArrayList<SearchData> filterList = new ArrayList<>();
-                    for (SearchData row : searchData) {
-                        if (row.getUsername().toLowerCase().contains(charString.toLowerCase())) {
-                            filterList.add(row);
-                        }
-                    }
-                    searchDataFilter = filterList;
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = searchDataFilter;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                searchDataFilter = (ArrayList<SearchData>) results.values;
-                notifyDataSetChanged();
-            }
-        };
     }
 }
