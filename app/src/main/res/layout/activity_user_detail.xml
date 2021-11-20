@@ -190,9 +190,11 @@
             android:id="@+id/tabsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             app:tabBackground="@drawable/tab_layout_select"
+            app:tabGravity="fill"
             app:tabIndicatorColor="@android:color/white"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
             app:tabTextColor="@android:color/white" />
 
@@ -203,5 +205,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
