@@ -47,11 +47,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     class ListViewHolder(private val _binding: ItemsUserBinding) :
         RecyclerView.ViewHolder(_binding.root) {
         fun bind(user: Items) {
-            _binding.tvAccount.text = user.html_url
+            _binding.tvAccount.text = user.htmlUrl
             _binding.tvUsername.text = user.login
 
             Glide.with(itemView.context)
-                .load(user.avatar_url)
+                .load(user.avatarUrl)
                 .skipMemoryCache(true)
                 .into(_binding.imgAvatar)
         }
