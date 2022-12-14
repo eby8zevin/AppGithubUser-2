@@ -46,7 +46,7 @@ class UserDetailActivity : AppCompatActivity() {
         viewModel.detailUser(username)
         viewModel.getUserDetail.observe(this) { detailUser ->
             Glide.with(this)
-                .load(detailUser.avatar_url)
+                .load(detailUser.avatarUrl)
                 .skipMemoryCache(true)
                 .into(binding.imgAvatar)
 
@@ -54,7 +54,7 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvUsername.text = detailUser.login
             binding.tvCompany.text = detailUser.company
             binding.tvLocation.text = detailUser.location
-            binding.tvRepositoryValue.text = detailUser.public_repos
+            binding.tvRepositoryValue.text = detailUser.publicRepos
             binding.tvFollowersValue.text = detailUser.followers
             binding.tvFollowingValue.text = detailUser.following
         }
@@ -68,13 +68,8 @@ class UserDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
+    private fun showLoading(isLoading: Boolean) =
+        binding.progressBar.visibility == if (isLoading) View.VISIBLE else View.GONE
 
     companion object {
         const val EXTRA_USER = "extra_user"
