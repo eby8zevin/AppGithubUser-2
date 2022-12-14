@@ -51,9 +51,11 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showRecyclerView() {
-        binding.rvFollowers.layoutManager = LinearLayoutManager(activity)
-        binding.rvFollowers.setHasFixedSize(true)
-        binding.rvFollowers.adapter = adapter
+        with(binding.rvFollowers) {
+            layoutManager = LinearLayoutManager(requireActivity())
+            setHasFixedSize(true)
+            adapter = adapter
+        }
 
         adapter.setOnItemClickCallback { data -> selectedUser(data) }
     }
@@ -66,13 +68,8 @@ class FollowersFragment : Fragment() {
         startActivity(i)
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
+    private fun showLoading(isLoading: Boolean) =
+        binding.progressBar.visibility == if (isLoading) View.VISIBLE else View.GONE
 
     override fun onResume() {
         super.onResume()
