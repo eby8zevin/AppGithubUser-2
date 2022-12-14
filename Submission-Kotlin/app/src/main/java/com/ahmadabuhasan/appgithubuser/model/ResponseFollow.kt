@@ -11,50 +11,50 @@ data class ResponseFollow(
     val id: Int,
 
     @field:SerializedName("node_id")
-    val node_id: String,
+    val nodeId: String,
 
     @field:SerializedName("avatar_url")
-    val avatar_url: String,
+    val avatarUrl: String,
 
     @field:SerializedName("gravatar_id")
-    val gravatar_id: String,
+    val gravatarId: String,
 
     @field:SerializedName("url")
     val url: String,
 
     @field:SerializedName("html_url")
-    val html_url: String,
+    val htmlUrl: String,
 
     @field:SerializedName("followers_url")
-    val followers_url: String,
+    val followersUrl: String,
 
     @field:SerializedName("following_url")
-    val following_url: String,
+    val followingUrl: String,
 
     @field:SerializedName("gists_url")
-    val gists_url: String,
+    val gistsUrl: String,
 
     @field:SerializedName("starred_url")
-    val starred_url: String,
+    val starredUrl: String,
 
     @field:SerializedName("subscriptions_url")
-    val subscriptions_url: String,
+    val subscriptionsUrl: String,
 
     @field:SerializedName("organizations_url")
-    val organizations_url: String,
+    val organizationsUrl: String,
 
     @field:SerializedName("repos_url")
-    val repos_url: String,
+    val reposUrl: String,
 
     @field:SerializedName("events_url")
-    val events_url: String,
+    val eventsUrl: String,
 
     @field:SerializedName("received_events_url")
-    val received_events_url: String,
+    val receivedEventsUrl: String,
 
     @field:SerializedName("type")
     val type: String,
 
     @field:SerializedName("site_admin")
-    val site_admin: Boolean
+    val siteAdmin: Boolean
 )
