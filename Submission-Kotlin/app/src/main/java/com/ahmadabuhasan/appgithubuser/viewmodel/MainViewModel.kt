@@ -43,8 +43,6 @@ class MainViewModel : ViewModel() {
                     val responseBody = response.body()
                     if (response.isSuccessful && responseBody != null) {
                         searchList.value = ArrayList(responseBody.items)
-                    } else {
-                        Log.e(TAG, "onFailure: ${response.message()}")
                     }
                 }
 
