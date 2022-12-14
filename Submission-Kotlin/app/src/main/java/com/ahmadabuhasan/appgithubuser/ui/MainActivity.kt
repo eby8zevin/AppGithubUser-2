@@ -50,11 +50,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerView() {
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.rvUser.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            binding.rvUser.layoutManager = LinearLayoutManager(this)
-        }
+        binding.rvUser.layoutManager =
+            if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                GridLayoutManager(this, 2)
+            } else {
+                LinearLayoutManager(this)
+            }
 
         binding.rvUser.setHasFixedSize(true)
         binding.rvUser.adapter = adapter
@@ -88,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                //viewModel.searchUser(newText)
                 return false
             }
         })
@@ -97,11 +97,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
+    private fun showLoading(isLoading: Boolean) =
+        binding.progressBar.visibility == if (isLoading) View.VISIBLE else View.GONE
 }
