@@ -20,9 +20,10 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
-        /*
-        Hindari penggunaan magic number, seperti angka ini. Sebaiknya disimpan dalam bentuk constant value agar code mudah dipahami.
-         */
+        }, DELAY_TIME)
+    }
+
+    companion object {
+        const val DELAY_TIME = 3000L
     }
 }
