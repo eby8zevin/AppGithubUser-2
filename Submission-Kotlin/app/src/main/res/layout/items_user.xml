@@ -24,39 +24,28 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_account"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/name"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/account"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@id/img_avatar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/username"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
-
-        <TextView
-            android:id="@+id/tv_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="130dp"
             android:layout_marginTop="5dp"
-            android:text="@string/location"
+            android:text="@string/username"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/img_avatar"
-            app:layout_constraintTop_toBottomOf="@id/tv_username" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_account"
+            app:layout_constraintTop_toBottomOf="@id/tv_account" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
