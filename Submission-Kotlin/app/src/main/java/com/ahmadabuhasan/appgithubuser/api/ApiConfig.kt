@@ -12,12 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     private const val BASE_URL = "https://api.github.com/"
-    private const val TOKEN = "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"
+    private const val token = BuildConfig.KEY
 
     class TokenInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val request: Request = chain.request().newBuilder()
-                .header("Authorization", "Bearer $TOKEN")
+                .header("Authorization", "Bearer $token")
                 .build()
 
             return chain.proceed(request)
