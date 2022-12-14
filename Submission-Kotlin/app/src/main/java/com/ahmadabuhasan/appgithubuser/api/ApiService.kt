@@ -1,6 +1,5 @@
 package com.ahmadabuhasan.appgithubuser.api
 
-import com.ahmadabuhasan.appgithubuser.model.Items
 import com.ahmadabuhasan.appgithubuser.model.ResponseDetailUser
 import com.ahmadabuhasan.appgithubuser.model.ResponseFollow
 import com.ahmadabuhasan.appgithubuser.model.ResponseSearch
