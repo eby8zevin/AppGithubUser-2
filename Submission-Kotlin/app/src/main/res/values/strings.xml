@@ -9,4 +9,10 @@
     <string name="follower">followers </string>
     <string name="following">following</string>
     <string name="value">99</string>
+
+    <string name="detail_user">Detail User</string>
+    <string name="not_found">Not Found</string>
+    <string name="account">Akun GitHub</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Masukkan username</string>
 </resources>
