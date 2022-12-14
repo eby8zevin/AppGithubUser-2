@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gh_1">#171515</color>
+    <color name="gh_4">#817f7f</color>
+    <!-- https://encycolorpedia.id/171515 -->
 </resources>
