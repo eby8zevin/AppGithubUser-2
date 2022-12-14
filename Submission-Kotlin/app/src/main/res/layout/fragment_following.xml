@@ -20,5 +20,4 @@
         android:indeterminateTint="@color/black"
         android:visibility="gone"
         tools:visibility="visible" />
-
 </FrameLayout>
