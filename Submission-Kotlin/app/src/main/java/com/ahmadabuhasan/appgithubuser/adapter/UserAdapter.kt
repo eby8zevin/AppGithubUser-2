@@ -2,7 +2,6 @@ package com.ahmadabuhasan.appgithubuser.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmadabuhasan.appgithubuser.databinding.ItemsUserBinding
@@ -87,7 +86,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
-        @Nullable
         @Override
         override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
             return super.getChangePayload(oldItemPosition, newItemPosition)
