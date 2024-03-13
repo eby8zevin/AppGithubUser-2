@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         showViewModel()
         showRecyclerView()
         viewModel.getIsLoading.observe(this, this::showLoading)
+        viewModel.searchUser("q")
+        binding.tvNotFound.visibility = View.GONE
     }
 
     private fun showViewModel() {
