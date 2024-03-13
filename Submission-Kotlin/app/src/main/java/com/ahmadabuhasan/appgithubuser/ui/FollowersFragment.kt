@@ -51,11 +51,9 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showRecyclerView() {
-        with(binding.rvFollowers) {
-            layoutManager = LinearLayoutManager(requireActivity())
-            setHasFixedSize(true)
-            adapter = adapter
-        }
+        binding.rvFollowers.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFollowers.setHasFixedSize(true)
+        binding.rvFollowers.adapter = adapter
 
         adapter.setOnItemClickCallback { data -> selectedUser(data) }
     }
