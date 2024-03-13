@@ -51,11 +51,9 @@ class FollowingFragment : Fragment() {
     }
 
     private fun showRecyclerView() {
-        with(binding.rvFollowing) {
-            layoutManager = LinearLayoutManager(requireActivity())
-            setHasFixedSize(true)
-            adapter = adapter
-        }
+        binding.rvFollowing.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFollowing.setHasFixedSize(true)
+        binding.rvFollowing.adapter = adapter
 
         adapter.setOnItemClickCallback { data -> selectedUser(data) }
     }
